@@ -1,4 +1,4 @@
-script "vObjectLib2"
+script "vObjectLib"
 /*** Header ***
 * vObject library including vCard and iCalendar support
 * by Andre Alves Garzia 2005

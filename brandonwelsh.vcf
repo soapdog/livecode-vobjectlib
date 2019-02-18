@@ -1,0 +1,14 @@
+BEGIN:VCARD
+N:welsh;brandon;;;
+FN:brandon welsh
+TEL;TYPE=WORK:340867358967
+
+TITLE:Mr
+URL:http://example.com
+NOTE:Just some multiline notes\nSee? Two lines!
+ORG:BH
+
+EMAIL;TYPE=internet:welsh@91214.com
+
+CATEGORY:vObjectLib
+END:VCARD
