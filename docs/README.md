@@ -10,6 +10,13 @@ Included in this prroject vObjectLib which is the library, one or more demo stac
 
 > **Advise:** please read the RFCs, this way you'll know how to generate everything.
 
+# Download
+
+This library is available as:
+* [A git repo from Github](https://github.com/soapdog/livecode-vobjectlib)
+* [A git repo from SourceHut](https://git.sr.ht/~soapdog/vObjectLib)
+* [A zipfile from Github](https://github.com/soapdog/livecode-vobjectlib/archive/master.zip)
+
 ## Initial Release
 
 Andre Alves Garzia
