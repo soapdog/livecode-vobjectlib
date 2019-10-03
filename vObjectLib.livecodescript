@@ -99,9 +99,11 @@ end vObjectGroupProperties
 *
 * @param   pObject   Passed by reference. It points to the vObject container that will be changed.
 */
-on vObjectReverse @pObject
-  repeat with x = the number of lines of pObject down to 1
-    put line x of pObject & lf after tRetVal
+private command vObjectReverse @pObject
+  repeat for each line tLine in pObject
+  --repeat with x = the number of lines of pObject down to 1
+    --put line x of pObject & lf after tRetVal
+    put tLine & cr before tRetVal
   end repeat
   put tRetVal into pObject
 end vObjectReverse
@@ -250,11 +252,13 @@ end getvObjectParam
 * @param   pObject    The object to be folded.
 */
 on vObjectFold @pObject
-repeat with x = 1 to the number of lines in pObject
-    put line x of pObject into tLine
+  local x
+  put 1 into x
+  repeat for each line tLine in pObject
     if len(tLine) > 75 then
       put LF & " " after char 75 of line x of pObject
     end if
+    add 1 to x
   end repeat
   return true
 end vObjectFold
@@ -316,10 +320,12 @@ end vObjectGet
 * @return  An array of vObjects
 */
 function vObjectSplit pObjectType, pObject
+  local x
+
   put "BEGIN:" & pObjectType into tHeader
   put "END:" & pObjectType into tFooter
-  repeat with x = 1 to the number of lines in pObject
-    put line x of pObject into tLine
+  put 1 into x
+  repeat for each line tLine in pObject
     if tLine contains tHeader then put x into tBeginBlock
     if tLine contains tFooter then put x into tEndBlock
     if tEndBlock is not empty then
@@ -327,6 +333,7 @@ function vObjectSplit pObjectType, pObject
       put empty into tEndBlock
       put empty into tBeginBlock
     end if
+    add 1 to x
   end repeat
   delete char -1 of tRetVal
   split tRetVal by numToChar(4)
@@ -543,7 +550,8 @@ on vCardAddNote @pObject, pValue
 end vCardAddNote
 
 on vCardAddProdID @pObject, pValue
-  put format("-//$s//Revolution/MetaCard//EN", pValue) into tValue
+  --put format("-//$s//Revolution/MetaCard//EN", pValue) into tValue
+  put format("-//$s//LiveCode//EN", pValue) into tValue
   vObjectAddProperty pObject, "PRODID", tValue
 end vCardAddProdID
 
@@ -620,12 +628,7 @@ on vCardSerialize @pObject
   if it is false then
     return "Error: Required prop name. use vCardAddName to add name."
   end if
-  repeat with x = 1 to the number of lines in pObject
-    put line x of pObject into tLine
-    if len(tLine) > 75 then
-      put LF & " " after char 75 of line x of pObject
-    end if
-  end repeat
+  vObjectFold pObject
   return true
 end vCardSerialize
 
